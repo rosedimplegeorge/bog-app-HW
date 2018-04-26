@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require('express')
 const bodyParser = require('body-parser')
+const logger = require('morgan')
 const mongoose = require('mongoose')
 const app = express();
 
@@ -17,6 +18,11 @@ db.on('open',()=>{
 
 app.use(logger('dev'))
 app.use(bodyParser.json())
+app.use(express.static(`${__dirname}/client/build`))
+
+// app.get('/*', (req, res) => {
+//     res.sendFile(`${__dirname}/client/build/index.html`)
+//   })
 
 app.get('/', (req, res) =>{
     res.send('Hello From ServerApp')
